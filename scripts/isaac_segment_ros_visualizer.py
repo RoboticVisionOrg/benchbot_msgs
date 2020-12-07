@@ -2,6 +2,13 @@
 import rospy
 from benchbot_msgs.msg import isaac_segment_img
 from sensor_msgs.msg import  Image
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+parser.add_argument('--subscribe_topic', '-s', default='isaac_segment'
+                      help='topic that we subscribe to in ros', 
+                     )
+args = parser.parse_args()
 
 # Visualizer here simply takes the complete custom ros msg
 # splits it into its component parts and publishes them back to ROS
@@ -19,9 +26,9 @@ def visualizer(data):
 
 def listener():
   rospy.init_node('isaac_segment_visualizer', anonymous=True)
-  rospy.Subscriber("isaac_segment", isaac_segment_img, callback)
+  rospy.Subscriber(args.subscribe_topic, isaac_segment_img, callback)
   rospy.spin()
 
 if __name__ == "__main__":
-    listener()
+  listener()
 
