@@ -5,8 +5,8 @@ from sensor_msgs.msg import  Image
 from argparse import ArgumentParser
 
 parser = ArgumentParser()
-parser.add_argument('--subscribe_topic', '-s', default='isaac_segment'
-                      help='topic that we subscribe to in ros', 
+parser.add_argument('--subscribe_topic', '-s', default='isaac_segment',
+                     help='topic that we subscribe to in ros', 
                      )
 args = parser.parse_args()
 
