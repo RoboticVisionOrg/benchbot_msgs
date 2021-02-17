@@ -1,13 +1,20 @@
 #!/usr/bin/env python2
 import rospy
-from benchbot_msgs.msg import isaac_segment_img
-from sensor_msgs.msg import  Image
+from benchbot_msgs.msg import SegmentImages
 from cv_bridge import CvBridge
 import os
 import cv2
 import numpy as np
 
-root_folder = '/media/david/storage_device/segment_img_tests'
+
+parser = ArgumentParser()
+parser.add_argument('--subscribe_topic', '-s', default='isaac_segment',
+                     help='topic that we subscribe to in ros', 
+                     )
+parser.add_argument('--img_folder', '-i', default='./',
+                    help='location where images will be saved')
+args = parser.parse_args()
+root_folder = args.img_folder
 
 count = 0
 # This just saves each individual class and instance in an image as its own image
@@ -16,7 +23,6 @@ count = 0
 
 def callback(data):
   global count
-  # count = 0
   # create a folder where the sub-images for this data will be stored
   subfolder = os.path.join(root_folder, "{:06d}".format(count))
   if not os.path.isdir(subfolder):
@@ -28,8 +34,6 @@ def callback(data):
   class_img = bridge.imgmsg_to_cv2(data.class_segment_img, "8UC1")
 
   # Get the class names and ids
-  print(data.class_ids)
-  print(data.class_names)
   class_ids = np.array(data.class_ids, dtype=np.uint8)
   class_names = np.array(data.class_names)
 
@@ -41,10 +45,8 @@ def callback(data):
 
     # find the class name to use in image name
     class_name = class_names[np.where(class_ids == class_id)[0]][0]
-    # print(class_name)
     img_name = os.path.join(subfolder, "class", 
                             "{0:03d}_{1}.png".format(class_id, class_name))
-    # print("WRITING!! {}".format(img_name))
     cv2.imwrite(img_name, (class_img == class_id)*255)
   
   # Get the instance image
@@ -58,21 +60,15 @@ def callback(data):
     bool_inst_img = instance_img == instance_id
     masked_class_img = class_img * bool_inst_img
     # should only have the current class object in this mask
-    # print(np.unique(masked_class_img, return_counts=True))
-    for temp_id in np.unique(masked_class_img):
-      if temp_id != 0:
-        # print(class_names[np.where(class_ids == temp_id)[0]])
     class_name = class_names[np.where(class_ids == np.max(masked_class_img))[0]][0]
-    # print(class_name)
     img_name = os.path.join(subfolder, "instance", "{0:06d}_{1}.png".format(instance_id, class_name))
-    # print("WRITING!! {}".format(img_name))
     cv2.imwrite(img_name, bool_inst_img*255)
   count += 1
 
 
 def listener():
-  rospy.init_node('isaac_segment_img_tester', anonymous=True)
-  rospy.Subscriber("isaac_segment", isaac_segment_img, callback)
+  rospy.init_node('SegmentImages_tester', anonymous=True)
+  rospy.Subscriber(args.subscribe_topic, SegmentImages, callback)
   rospy.spin()
 
 if __name__ == "__main__":

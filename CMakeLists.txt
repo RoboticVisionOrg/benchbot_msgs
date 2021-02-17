@@ -13,7 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   message_generation
-)
+  )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -51,8 +51,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  isaac_segment_img.msg
-)
+  SegmentImages.msg
+  )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -71,9 +71,9 @@ add_message_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-  sensor_msgs 
+  sensor_msgs
   std_msgs
-)
+  )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -105,11 +105,11 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES benchbot_msgs
+  #  INCLUDE_DIRS include
+  #  LIBRARIES benchbot_msgs
   CATKIN_DEPENDS message_runtime roscpp rospy sensor_msgs std_msgs
-#  DEPENDS system_lib
-)
+  #  DEPENDS system_lib
+  )
 
 ###########
 ## Build ##
@@ -118,9 +118,9 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  # include
   ${catkin_INCLUDE_DIRS}
-)
+  )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -161,9 +161,9 @@ include_directories(
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-install(PROGRAMS scripts/isaac_segment_ros_visualizer.py scripte/isaac_segment_img_tests.py
+install(PROGRAMS scripts/segment_img_ros_visualizer.py scripts/segment_img_save_img_test.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+  )
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
