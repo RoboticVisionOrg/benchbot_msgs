@@ -15,7 +15,7 @@ ROS message type containing class and instance segmentation images.
   *  `uint8` image where every unique non-zero pixel value corresponds to a specific class
 * `sensor_msgs/Image.msg instance_segment_img`
   * `uint16` image where every unique non-zero pixel value corresponds to a specific instance
-  * numbering convention of pixel values is CCIII where CC is the class id (up to 65) and III is the instance id within that class in the given image (up to 999)
+  * numbering convention of pixel values is CCIII where CC is the class id (1 up to 65) and III is the instance id within the current environment (1 up to 999)
 * `string[] class_names`
   * name of each class in the given image as a string
 * `uint16[] class_ids`
