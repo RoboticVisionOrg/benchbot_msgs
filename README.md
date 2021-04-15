@@ -2,8 +2,8 @@
 
 [![BenchBot project](https://img.shields.io/badge/collection-BenchBot-%231a2857)](http://benchbot.org)
 [![QUT Centre for Robotics Open Source](https://github.com/qcr/qcr.github.io/raw/master/misc/badge.svg)](https://qcr.github.io)
-![Primary language](https://img.shields.io/github/languages/top/qcr/benchbot_eval)
-[![License](https://img.shields.io/github/license/qcr/benchbot_eval)](./LICENSE.txt)
+![Primary language](https://img.shields.io/github/languages/top/qcr/benchbot_msgs)
+[![License](https://img.shields.io/github/license/qcr/benchbot_msgs)](./LICENSE.txt)
 
 This repo contains any extra messages used in ROS as part of the BenchBot framework alongside scripts for testing the messages.
 
@@ -48,4 +48,3 @@ This script saves every mask for every class segmentation image (every individua
 
 - `--subscribe_topic`, `-s` - the ROS topic to subscribe to
 - `--img_folder`, `-i` - the location where images will be saved
-
